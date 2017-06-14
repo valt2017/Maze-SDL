@@ -1,14 +1,7 @@
 #pragma once
 
-const char CURSOR = 'O';
-const char CIEL = 'C';
-const char STENA = '#';
-const char VOLNA = ' ';
-const char BOMBA = 'B';
-
 class Maze
 {
-	enum Fiels {};
 	char ** pIn;
 	int SizeX;
 	int SizeY;
@@ -18,6 +11,11 @@ class Maze
 	int ExitY;
 	
 public:
+	static const char CURSOR = 'O';
+	static const char CIEL = 'C';
+	static const char STENA = '#';
+	static const char VOLNA = ' ';
+	static const char BOMBA = 'B';
 	static const int CELL_SIZE = 20;
 	Maze();
 	Maze(char * File);
@@ -28,6 +26,8 @@ public:
 	void MoveDown();
 	void MoveLeft();
 	void MoveRight();
+	void PlaceBomb();
+	void DetonateBombs();
 	char GetField(int X, int Y);
 	bool Find(char Item, int & X, int & Y);
 	bool ExitReached();

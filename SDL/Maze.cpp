@@ -87,30 +87,55 @@ int Maze::GetSizeY() {
 
 void Maze::MoveUp() {
 	if (pIn[CursorY - 1][CursorX] != STENA) {
-		pIn[CursorY][CursorX] = BOMBA;
+		if(pIn[CursorY][CursorX] != BOMBA)
+			pIn[CursorY][CursorX] = VOLNA;
 		pIn[--CursorY][CursorX] = CURSOR;
 	}
 }
 
 void Maze::MoveDown() {
 	if (pIn[CursorY + 1][CursorX] != STENA) {
-		pIn[CursorY][CursorX] = BOMBA;
+		if (pIn[CursorY][CursorX] != BOMBA)
+ 		  pIn[CursorY][CursorX] = VOLNA;
 		pIn[++CursorY][CursorX] = CURSOR;
 	}
 }
 
 void Maze::MoveLeft() {
 	if (pIn[CursorY][CursorX - 1] != STENA) {
-		pIn[CursorY][CursorX] = BOMBA;
+		if (pIn[CursorY][CursorX] != BOMBA)
+			pIn[CursorY][CursorX] = VOLNA;
 		pIn[CursorY][--CursorX] = CURSOR;
 	}
 }
 
 void Maze::MoveRight() {
 	if (pIn[CursorY][CursorX + 1] != STENA) {
-		pIn[CursorY][CursorX] = BOMBA;
+		if (pIn[CursorY][CursorX] != BOMBA)
+			pIn[CursorY][CursorX] = VOLNA;
 		pIn[CursorY][++CursorX] = CURSOR;
 	}
+}
+
+void Maze::PlaceBomb(){
+	pIn[CursorY][CursorX] = BOMBA;
+}
+
+void Maze::DetonateBombs() {
+	for (int j = 0; j < SizeY; j++)
+		for (int i = 0; i < SizeX; i++)
+			if (pIn[j][i] == BOMBA) {
+				pIn[j][i] = VOLNA;
+				if (i > 1)  
+					pIn[j][i-1] = VOLNA;
+				if (j > 1)  
+					pIn[j-1][i] = VOLNA;
+				if (i < SizeX-2)  
+					pIn[j][i+1] = VOLNA;
+				if (j < SizeY-2)  
+					pIn[j+1][i] = VOLNA;
+
+			}
 }
 
 void Maze::ToString()
